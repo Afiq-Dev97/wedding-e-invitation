@@ -2,33 +2,25 @@ body {
   background-color: #fff7e5;
   text-align: center;
   font-family: "Work Sans", sans-serif;
-  font-size: 12px;
+  font-size: 20px;
   font-weight: 400px;
+  padding-bottom: 30px;
 }
 
-.circular-frame {
-  position: absolute;
-  z-index: -1;
-  
-}
 
-.floral-bg {
-  position: absolute;
-  z-index: -1;
-  border-radius: 50%;
-}
 
-.muka-depan {
-  height: 700px;
+#muka-depan {
+  height: 1000px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position:relative;
+  
+ 
   
 }
-.kata-kata {
-  height: 800px;
+#kata-kata {
+  height: 1100px;
   display: flex;
   flex-direction: column;
   justify-content: top;
@@ -49,7 +41,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 500px;
+  max-width: 800px;
 }
 
 .nama-parents {
@@ -67,12 +59,14 @@ body {
   padding-top: 30px;
 }
 
-.atur-cara {
+#atur-cara {
   height: 700px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position:relative;
-  row-gap: 20px;
+  row-gap: 30px;
+
+  
 }
