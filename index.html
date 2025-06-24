@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jemputan Kahwin [Nama Pengantin Lelaki] & [Nama Pengantin Perempuan]</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <p class="tagline-top">WALIMATULURUS</p>
+            <h1>
+                <span class="cursive-name">Afiq</span>
+            </h1>
+            <p class="and-symbol-hero">&</p> 
+            <h1>
+                <span class="cursive-name">Hannani</span>
+            </h1>
+            <div class="countdown" id="countdown"></div>
+        </div>
+    </header>
+
+    <section class="section about-us">
+        <p class="bismillah-text">Dengan nama Allah yang Maha Pemurah lagi Maha Penyayang</p>
+        <p class="salam-text">Assalamualaikum WBT dan salam sejahtera</p>
+
+        <p class="opening-phrase">Dengan sukacitanya kami,</p>
+
+        <div class="parents-section">
+            <p class="parent-name"><span>Zakaria bin Othman</span></p>
+            <p class="and-in-text">&</p>
+            <p class="parent-name"><span>Zakhiroh binti Ismail</span></p>
+        </div>
+
+        <p class="menjemput-text">menjemput</p>
+        <p class="guest-placeholder">Tuan / Puan / Encik / Cik</p>
+
+        <p class="invitation-detail">untuk menghadiri majlis perkahwinan putera kami</p>
+        <p class="main-couple-name cursive-name">Muhammad Afiq bin Zakaria</p>
+
+        <p class="invitation-detail">dengan pilihan hatinya</p>
+        <p class="main-couple-name cursive-name">Hannani Amminy binti Ahmad Amminy</p>
+    </section>
+    <section class="section event-details">
+        <h2>Butiran Majlis</h2>
+        <div class="event-card">
+            <h3>Majlis Walimatul Urus (Persandingan)</h3>
+            <p><strong>Tarikh:</strong> 13 September 2025</p>
+            <p><strong>Hari:</strong> Sabtu</p>
+            <p><strong>Masa:</strong> 12:00 Tengahari - 5:00 Petang</p>
+            <p><strong>Lokasi:</strong> Dewan Elite</p>
+            <p>Dewan Elite, 08000 Sungai Petani, Kedah</p>
+            <a href="https://waze.com/ul/hw1p2njsd5" target="_blank" class="btn">Lihat Peta</a>
+        </div>
+    </section>
+
+    <section class="section rsvp">
+        <h2>Kehadiran Anda Amat Dihargai</h2>
+        <p>Sila maklumkan kehadiran anda sebelum 20 Ogos 2025.</p>
+
+        <form id="rsvpForm" class="rsvp-form" action="https://formspree.io/f/xwpbrzwp" method="POST">
+            <div class="form-group">
+                <label for="nama">Nama Penuh:</label>
+                <input type="text" id="nama" name="Nama Penuh" required>
+            </div>
+            <div class="form-group">
+                <label for="kehadiran">Kehadiran:</label>
+                <select id="kehadiran" name="Kehadiran" required>
+                    <option value="">-- Sila Pilih --</option>
+                    <option value="Hadir">Hadir</option>
+                    <option value="Tidak Hadir">Tidak Hadir</option>
+                </select>
+            </div>
+            <div class="form-group" id="bilanganOrangGroup">
+                <label for="bilanganOrang">Bilangan Orang (termasuk anda):</label>
+                <input type="number" id="bilanganOrang" name="Bilangan Orang" min="1" value="1">
+            </div>
+            <input type="hidden" name="_next" value="terimakasih.html">
+            <button type="submit" class="btn">Hantar RSVP</button>
+        </form>
+
+        <p class="contact-info">Atau hubungi: Zakaria - 013-4587240 / Zakhiroh - 0125991580</p>
+    </section>
+
+    <footer class="footer">
+        <p>"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan untukmu pasangan-pasangan dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir."</p>
+        <p class="quran-verse">(Surah Ar-Rum: 21)</p>
+        <p>&copy; 2025 e-invite. Hak Cipta Terpelihara.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
