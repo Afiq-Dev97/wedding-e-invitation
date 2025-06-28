@@ -3,11 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jemputan Walimatulurus Afiq & Hannani</title>
+    <title>Jemputan Walimatul Urus Afiq & Hannani</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <audio autoplay loop>
+        <source src="BGM.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <section class="intro-page" id="introPage">
+        <div class="intro-content">
+            <p class="intro-tagline">WALIMATULURUS</p>
+            <p class="intro-names">
+                <span class="cursive-intro-name">Afiq</span>
+                <span class="intro-and">&</span>
+                <span class="cursive-intro-name">Hannani</span>
+            </p>
+            <button id="viewInvitationBtn" class="btn intro-btn">Lihat Jemputan</button>
+        </div>
+    </section>
     <header class="hero">
         <div class="hero-content">
             <p class="tagline-top">WALIMATULURUS</p>
@@ -43,16 +58,17 @@
         <p class="invitation-detail">dengan pilihan hatinya</p>
         <p class="main-couple-name cursive-name">Hannani Amminy binti Ahmad Amminy</p>
     </section>
+
     <section class="section event-details">
         <h2>Butiran Majlis</h2>
         <div class="event-card">
             <h3>Majlis Walimatul Urus (Persandingan)</h3>
             <p><strong>Tarikh:</strong> 13 September 2025</p>
             <p><strong>Hari:</strong> Sabtu</p>
-            <p><strong>Masa:</strong> 12:00 Tengahari - 5:00 Petang</p>
-            <p><strong>Lokasi:</strong> Dewan Elite, 08000 Sungai Petani, Kedah</p>
-            
-            <a href="https://waze.com/ul/hw1p2njsd5" target="_blank" class="btn">Lihat Peta</a>
+            <p><strong>Masa:</strong> 12 tengahari - 5 petang</p>
+            <p><strong>Lokasi:</strong> Dewan Elite</p>
+            <p>Dewan Elite, 08000 Sungai Petani, Kedah.</p>
+            <a href="https://waze.com/ul/hw1p2njsd5" target="_blank" class="btn">Lihat Peta (Waze)</a>
         </div>
     </section>
 
@@ -77,17 +93,28 @@
                 <label for="bilanganOrang">Bilangan Orang (termasuk anda):</label>
                 <input type="number" id="bilanganOrang" name="Bilangan Orang" min="1" value="1">
             </div>
-            <input type="hidden" name="_next" value="terimakasih.html">
+            <input type="hidden" name="_next" value="https://www.tiktok.com/@syyff.888/video/7516830142182870290">
             <button type="submit" class="btn">Hantar RSVP</button>
         </form>
-
-        <p class="contact-info">Atau hubungi: Zakaria - 013-4587240 / Zakhiroh - 0125991580</p>
     </section>
 
+    <section class="section contact-section">
+        <h2>Hubungi Kami</h2>
+        <p>Jika ada sebarang pertanyaan atau ingin RSVP secara terus, sila hubungi:</p>
+        <p>
+            <strong>Zakaria (Bapa Pengantin Lelaki):</strong> 
+            <a href="tel:+60134587240">013-4587240</a>
+        </p>
+        <p>
+            <strong>Zakhiroh (Ibu Pengantin Lelaki):</strong> 
+            <a href="tel:+60125991580">012-5991580</a>
+        </p>
+        <p class="thank-you-contact">Terima kasih atas perhatian anda.</p>
+    </section>
     <footer class="footer">
         <p>"Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan untukmu pasangan-pasangan dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir."</p>
         <p class="quran-verse">(Surah Ar-Rum: 21)</p>
-        <p>&copy; 2025 e-invite. Hak Cipta Terpelihara.</p>
+        <p>#APerfectFiqForHannani</p>
     </footer>
 
     <script src="script.js"></script>
