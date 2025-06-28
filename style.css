@@ -18,7 +18,8 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--light-bg);
-    overflow-x: hidden;
+    overflow-x: hidden; /* Kekalkan ini untuk elak scroll horizontal */
+    overflow-y: hidden; /* SEKAT SCROLLING VERTIKAL PADA MULANYA */
 }
 
 h1, h2, h3 {
@@ -59,14 +60,6 @@ h2 {
     padding-top: 40px;
 }
 
-/* .small-h2 tidak digunakan lagi untuk Assalamualaikum */
-/* .small-h2 {
-    font-size: 1.5em;
-    font-weight: normal;
-    color: var(--text-color);
-    padding-top: 0;
-} */
-
 p {
     text-align: center;
     margin-bottom: 10px;
@@ -103,9 +96,73 @@ a:hover {
     background-color: var(--accent-color);
 }
 
+/* --- GAYA BARU UNTUK INTRO SECTION (MUKA PALING DEPAN) --- */
+.intro-page {
+    position: fixed; /* Penting: supaya dia duduk atas semua content */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Lebar penuh viewport */
+    height: 100vh; /* Tinggi penuh viewport */
+    background-color: var(--light-bg); /* Latar belakang sama dengan tema */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Pastikan dia paling atas */
+    opacity: 1; /* Bermula dengan penuh nampak */
+    transition: opacity 1.5s ease-out; /* Animasi fade out selama 1.5 saat */
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box; /* Untuk padding tidak menyebabkan overflow */
+}
+
+.intro-content {
+    max-width: 90%; /* Hadkan lebar content */
+}
+
+.intro-tagline {
+    font-family: 'Playfair Display', serif; /* Boleh juga guna 'Open Sans' */
+    font-size: 2.5em; /* Saiz lebih besar untuk "Walimatulurus" */
+    font-weight: bold;
+    color: var(--primary-color);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.intro-names {
+    display: flex; /* Untuk letak nama sebaris dengan & */
+    flex-wrap: wrap; /* Kalau nama panjang, biar dia ke bawah */
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Jarak antara nama dan & */
+    margin-bottom: 40px;
+}
+
+.cursive-intro-name {
+    font-family: var(--cursive-font);
+    font-size: 4em; /* Saiz lebih besar untuk nama pengantin di intro */
+    color: var(--accent-color); /* Warna yang menonjol */
+    line-height: 1.2;
+}
+
+.intro-and {
+    font-family: var(--cursive-font);
+    font-size: 3em; /* Saiz simbol & */
+    color: var(--secondary-color);
+}
+
+.intro-btn {
+    /* Menggunakan kelas .btn yang sedia ada */
+    font-size: 1.2em; /* Saiz butang lebih besar */
+    padding: 15px 30px;
+}
+/* --- AKHIR GAYA BARU UNTUK INTRO SECTION --- */
+
+
 /* Hero Section */
 .hero {
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://via.placeholder.com/1500x800?text=Latar+Belakang+Hero') no-repeat center center/cover;
+    /* Anda boleh tukar URL imej di sini. Contoh: url('nama-gambar-anda.jpg') */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('floral-bg.png') no-repeat center center/cover;
     color: white;
     text-align: center;
     padding: 100px 20px;
@@ -132,8 +189,6 @@ a:hover {
     margin-bottom: 10px;
     color: var(--secondary-color);
 }
-
-/* .and-symbol tidak digunakan lagi untuk h1 */
 
 /* Countdown Timer */
 .countdown {
@@ -338,9 +393,43 @@ a:hover {
     background-color: var(--accent-color);
 }
 
-.contact-info {
-    margin-top: 20px;
-    font-size: 0.9em;
+
+/* --- Styles for new Contact Section --- */
+.contact-section {
+    background-color: #f9f9f9; /* Boleh tukar warna latar belakang jika mahu berselang seli */
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.contact-section h2 {
+    margin-bottom: 30px;
+    color: var(--accent-color); 
+}
+
+.contact-section p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.contact-section strong {
+    color: var(--primary-color); 
+}
+
+.contact-section a {
+    color: var(--accent-color); 
+    font-weight: bold;
+    text-decoration: none; 
+}
+
+.contact-section a:hover {
+    color: var(--primary-color);
+    text-decoration: underline; 
+}
+
+.thank-you-contact {
+    margin-top: 30px;
+    font-style: italic;
     color: #666;
 }
 
@@ -372,6 +461,22 @@ a:hover {
     h2 {
         font-size: 2em;
     }
+    /* GAYA BARU UNTUK INTRO SECTION DI MOBILE */
+    .intro-tagline {
+        font-size: 2em;
+    }
+    .cursive-intro-name {
+        font-size: 3.2em;
+    }
+    .intro-and {
+        font-size: 2.5em;
+    }
+    .intro-btn {
+        font-size: 1.1em;
+        padding: 12px 25px;
+    }
+    /* AKHIR GAYA BARU UNTUK INTRO SECTION DI MOBILE */
+
     /* GAYA BARU UNTUK ABOUT US SECTION DI MOBILE */
     .bismillah-text {
         font-size: 1.0em;
@@ -415,15 +520,6 @@ a:hover {
         padding: 8px 10px;
     }
 
-    .about-us .name-pair { /* Ini mungkin tidak lagi relevan */
-        flex-basis: 100%;
-        min-width: unset;
-    }
-
-    .about-us .and { /* Ini mungkin tidak lagi relevan */
-        margin: 10px 0;
-    }
-
     .section {
         padding: 40px 15px;
     }
@@ -449,6 +545,22 @@ a:hover {
     h2 {
         font-size: 1.8em;
     }
+    /* GAYA BARU UNTUK INTRO SECTION DI MOBILE KECIL */
+    .intro-tagline {
+        font-size: 1.8em;
+    }
+    .cursive-intro-name {
+        font-size: 2.5em;
+    }
+    .intro-and {
+        font-size: 2em;
+    }
+    .intro-btn {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+    /* AKHIR GAYA BARU UNTUK INTRO SECTION DI MOBILE KECIL */
+
     /* GAYA BARU UNTUK ABOUT US SECTION DI MOBILE SANGAT KECIL */
     .bismillah-text {
         font-size: 0.9em;
@@ -491,12 +603,6 @@ a:hover {
     .countdown div {
         min-width: 55px;
         padding: 6px 8px;
-    }
-    .about-us .name-pair span { /* Ini mungkin tidak lagi relevan */
-        font-size: 1.5em;
-    }
-    .about-us .and { /* Ini mungkin tidak lagi relevan */
-        font-size: 1.8em;
     }
     .btn {
         padding: 10px 20px;
