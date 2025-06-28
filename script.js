@@ -1,65 +1,629 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Tetapkan tarikh perkahwinan anda di sini (Tahun, Bulan-1, Hari, Jam, Minit, Saat)
-    // Ingat: Bulan bermula dari 0 (Januari = 0, Februari = 1, dst.)
-    // Contoh untuk 22 Ogos 2025, 11:00 Pagi:
-    const weddingDate = new Date(2025, 8, 13, 12, 0, 0).getTime(); // Current year is 2025
+/* General Styling & Fonts */
+:root {
+    --primary-color: #8B4513; /* Coklat Tanah / Emas */
+    --secondary-color: #F4A460; /* Peach / Orens Lembut */
+    --accent-color: #556B2F; /* Hijau Zaitun */
+    --text-color: #333;
+    --light-bg: #FFF8DC; /* Krem / Beige */
+    --dark-bg: #2C3E50; /* Dark Grey untuk Footer */
 
-    const countdownElement = document.getElementById('countdown');
+    --cursive-font: 'Great Vibes', cursive;
+}
 
-    const updateCountdown = setInterval(function() {
-        const now = new Date().getTime();
-        const distance = weddingDate - now;
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--light-bg);
+    overflow-x: hidden; /* Kekalkan ini untuk elak scroll horizontal */
+    overflow-y: hidden; /* SEKAT SCROLLING VERTIKAL PADA MULANYA */
+}
 
-        // Kira masa untuk hari, jam, minit dan saat
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
 
-        // Paparkan hasilnya dalam elemen dengan id="countdown"
-        if (countdownElement) {
-            countdownElement.innerHTML = `
-                <div>${days}<span>Hari</span></div>
-                <div>${hours}<span>Jam</span></div>
-                <div>${minutes}<span>Minit</span></div>
-                <div>${seconds}<span>Saat</span></div>
-            `;
-        }
+h1 {
+    font-size: 3.5em; /* Saiz lebih besar untuk nama pengantin */
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 
-        // Jika kira detik tamat
-        if (distance < 0) {
-            clearInterval(updateCountdown);
-            if (countdownElement) {
-                countdownElement.innerHTML = "<p>Majlis telah berlangsung!</p>";
-                countdownElement.style.fontSize = "1.5em";
-                countdownElement.style.color = "white";
-                countdownElement.style.backgroundColor = "transparent";
-                countdownElement.style.flexDirection = "column";
-            }
-        }
-    }, 1000);
+.cursive-name { /* Digunakan untuk nama pengantin utama */
+    font-family: var(--cursive-font);
+    font-weight: normal;
+    font-size: 1em; /* Ini adalah saiz relatif kepada parent element (h1 atau p) */
+}
 
-    // --- RSVP Form Display Logic ---
-    const kehadiranSelect = document.getElementById('kehadiran');
-    const bilanganOrangGroup = document.getElementById('bilanganOrangGroup');
-    const bilanganOrangInput = document.getElementById('bilanganOrang');
+/* Gaya baru untuk simbol '&' di bahagian hero */
+.and-symbol-hero {
+    font-family: var(--cursive-font);
+    font-size: 3em; /* Saiz simbol & */
+    color: var(--secondary-color);
+    margin: -10px 0; /* Tarik sedikit ke atas untuk rapatkan nama */
+    z-index: 1; /* Pastikan ia di atas jika ada elemen lain bertindih */
+}
 
-    if (kehadiranSelect) {
-        // Sembunyikan 'Bilangan Orang' secara lalai jika 'Tidak Hadir' dipilih atau tiada pilihan
-        if (kehadiranSelect.value === 'Tidak Hadir' || kehadiranSelect.value === '') {
-            bilanganOrangGroup.style.display = 'none';
-            bilanganOrangInput.required = false; // Pastikan tidak required
-        }
+h2 {
+    font-size: 2.2em;
+    padding-top: 40px;
+}
 
-        kehadiranSelect.addEventListener('change', function() {
-            if (this.value === 'Hadir') {
-                bilanganOrangGroup.style.display = 'flex'; // Tunjukkan jika Hadir
-                bilanganOrangInput.required = true; // Jadikan required
-            } else {
-                bilanganOrangGroup.style.display = 'none'; // Sembunyikan jika Tidak Hadir atau tiada pilihan
-                bilanganOrangInput.required = false; // Tidak required
-                bilanganOrangInput.value = '1'; // Reset nilai kepada 1
-            }
-        });
+p {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    font-size: 1em;
+    min-width: 150px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--accent-color);
+}
+
+/* --- GAYA BARU UNTUK INTRO SECTION (MUKA PALING DEPAN) --- */
+.intro-page {
+    position: fixed; /* Penting: supaya dia duduk atas semua content */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Lebar penuh viewport */
+    height: 100vh; /* Tinggi penuh viewport */
+    background-color: var(--light-bg); /* Latar belakang sama dengan tema */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Pastikan dia paling atas */
+    opacity: 1; /* Bermula dengan penuh nampak */
+    transition: opacity 1.5s ease-out; /* Animasi fade out selama 1.5 saat */
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box; /* Untuk padding tidak menyebabkan overflow */
+}
+
+.intro-content {
+    max-width: 90%; /* Hadkan lebar content */
+}
+
+.intro-tagline {
+    font-family: 'Playfair Display', serif; /* Boleh juga guna 'Open Sans' */
+    font-size: 2.5em; /* Saiz lebih besar untuk "Walimatulurus" */
+    font-weight: bold;
+    color: var(--primary-color);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.intro-names {
+    display: flex; /* Untuk letak nama sebaris dengan & */
+    flex-wrap: wrap; /* Kalau nama panjang, biar dia ke bawah */
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Jarak antara nama dan & */
+    margin-bottom: 40px;
+}
+
+.cursive-intro-name {
+    font-family: var(--cursive-font);
+    font-size: 4em; /* Saiz lebih besar untuk nama pengantin di intro */
+    color: var(--accent-color); /* Warna yang menonjol */
+    line-height: 1.2;
+}
+
+.intro-and {
+    font-family: var(--cursive-font);
+    font-size: 3em; /* Saiz simbol & */
+    color: var(--secondary-color);
+}
+
+.intro-btn {
+    /* Menggunakan kelas .btn yang sedia ada */
+    font-size: 1.2em; /* Saiz butang lebih besar */
+    padding: 15px 30px;
+}
+/* --- AKHIR GAYA BARU UNTUK INTRO SECTION --- */
+
+
+/* Hero Section */
+.hero {
+    /* Anda boleh tukar URL imej di sini. Contoh: url('nama-gambar-anda.jpg') */
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('floral-bg.png') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.hero-content {
+    max-width: 800px;
+    display: flex;
+    flex-direction: column; /* Ini akan susun h1, & symbol, h1 secara menegak */
+    align-items: center;
+    width: 100%;
+    gap: 0px; /* Set gap ke 0 supaya elemen rapat, kita akan guna margin pada & */
+}
+
+.tagline-top {
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    color: var(--secondary-color);
+}
+
+/* Countdown Timer */
+.countdown {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-top: 30px; /* Tambah margin top untuk jarakkan dari nama */
+    color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.countdown div {
+    background-color: rgba(0,0,0,0.3);
+    padding: 10px 15px;
+    border-radius: 8px;
+    min-width: 80px;
+    flex: 1;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.countdown span {
+    display: block;
+    font-size: 0.5em;
+    margin-top: 5px;
+}
+
+/* Sections General */
+.section {
+    padding: 60px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.section:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+
+/* ABOUT US SECTION - GAYA BARU MENGIKUT IMEJ */
+.about-us p {
+    margin-bottom: 0.7em; /* Jarak antara perenggan biasa */
+    line-height: 1.5;
+    color: var(--text-color);
+}
+
+.bismillah-text {
+    font-family: 'Playfair Display', serif; /* Bismillah biasanya ada gaya sikit */
+    font-size: 1.15em;
+    margin-bottom: 2em; /* Jarak lebih besar lepas bismillah */
+}
+
+.salam-text {
+    font-size: 1em;
+    font-weight: normal;
+    margin-bottom: 1.5em; /* Jarak lebih besar lepas salam */
+}
+
+.opening-phrase {
+    font-size: 1em;
+    margin-top: 2em; /* Jarak selepas salam */
+    margin-bottom: 1em;
+}
+
+.parents-section {
+    display: flex;
+    flex-direction: column; /* Letak nama ibu bapa secara menegak */
+    align-items: center;
+    gap: 5px; /* Jarak antara nama dan simbol & */
+    margin-bottom: 1.5em;
+}
+
+.parent-name {
+    font-family: 'Playfair Display', serif; /* Font untuk nama bapa & ibu */
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 0; /* Buang margin p asal */
+}
+
+.and-in-text {
+    font-family: 'Playfair Display', serif; /* Font untuk & di bahagian teks */
+    font-size: 1.3em;
+    color: var(--accent-color);
+    margin: 0; /* Buang margin p asal */
+}
+
+.menjemput-text {
+    font-size: 1em;
+    margin-top: 1.5em; /* Jarak selepas nama ibu bapa */
+    margin-bottom: 0.5em;
+}
+
+.guest-placeholder {
+    font-size: 1.1em;
+    font-weight: 600; /* Sedikit tebal */
+    color: var(--primary-color);
+    margin-bottom: 2em; /* Jarak lebih besar sebelum butiran majlis */
+}
+
+.invitation-detail {
+    font-size: 1em;
+    margin-bottom: 0.5em;
+    color: var(--text-color);
+}
+
+.main-couple-name { /* Digunakan untuk nama pengantin utama di bahagian teks */
+    font-family: var(--cursive-font);
+    font-size: 2.2em; /* Saiz font yang lebih besar untuk nama pengantin utama */
+    font-weight: normal;
+    color: var(--primary-color);
+    margin: 0.5em 0; /* Jarak atas bawah */
+}
+/* Akhir Gaya Baru untuk ABOUT US SECTION */
+
+
+/* Event Details Section */
+.event-details {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.event-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 30px;
+    text-align: center;
+}
+
+.event-card h3 {
+    color: var(--accent-color);
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+.event-card p {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+/* RSVP Section Styles */
+.rsvp-form {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 30px;
+    max-width: 500px;
+    margin: 30px auto;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group input[type="number"]::-webkit-outer-spin-button,
+.form-group input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.form-group input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.rsvp .btn {
+    margin-top: 15px;
+    width: auto;
+    align-self: center;
+    background-color: var(--primary-color);
+}
+
+.rsvp .btn:hover {
+    background-color: var(--accent-color);
+}
+
+
+/* --- Styles for new Contact Section --- */
+.contact-section {
+    background-color: #f9f9f9; /* Boleh tukar warna latar belakang jika mahu berselang seli */
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.contact-section h2 {
+    margin-bottom: 30px;
+    color: var(--accent-color); 
+}
+
+.contact-section p {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.contact-section strong {
+    color: var(--primary-color); 
+}
+
+.contact-section a {
+    color: var(--accent-color); 
+    font-weight: bold;
+    text-decoration: none; 
+}
+
+.contact-section a:hover {
+    color: var(--primary-color);
+    text-decoration: underline; 
+}
+
+.thank-you-contact {
+    margin-top: 30px;
+    font-style: italic;
+    color: #666;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--dark-bg);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.footer .quran-verse {
+    font-style: italic;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.8em;
     }
-});
+    .and-symbol-hero {
+        font-size: 2.5em;
+        margin: -5px 0;
+    }
+    h2 {
+        font-size: 2em;
+    }
+    /* GAYA BARU UNTUK INTRO SECTION DI MOBILE */
+    .intro-tagline {
+        font-size: 2em;
+    }
+    .cursive-intro-name {
+        font-size: 3.2em;
+    }
+    .intro-and {
+        font-size: 2.5em;
+    }
+    .intro-btn {
+        font-size: 1.1em;
+        padding: 12px 25px;
+    }
+    /* AKHIR GAYA BARU UNTUK INTRO SECTION DI MOBILE */
+
+    /* GAYA BARU UNTUK ABOUT US SECTION DI MOBILE */
+    .bismillah-text {
+        font-size: 1.0em;
+        margin-bottom: 1.5em;
+    }
+    .salam-text {
+        font-size: 0.9em;
+        margin-bottom: 1em;
+    }
+    .opening-phrase {
+        margin-top: 1.5em;
+    }
+    .parent-name {
+        font-size: 1.3em;
+    }
+    .and-in-text {
+        font-size: 1.1em;
+    }
+    .menjemput-text {
+        margin-top: 1em;
+    }
+    .guest-placeholder {
+        font-size: 1.0em;
+        margin-bottom: 1.5em;
+    }
+    .main-couple-name {
+        font-size: 1.8em;
+    }
+    /* AKHIR GAYA BARU UNTUK ABOUT US SECTION DI MOBILE */
+
+    .tagline-top {
+        font-size: 1.3em;
+    }
+    .countdown {
+        font-size: 1.8em;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    .countdown div {
+        min-width: 65px;
+        padding: 8px 10px;
+    }
+
+    .section {
+        padding: 40px 15px;
+    }
+
+    .event-card {
+        padding: 20px;
+    }
+
+    .rsvp-form {
+        padding: 20px;
+        margin: 20px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2.2em;
+    }
+    .and-symbol-hero {
+        font-size: 2em;
+        margin: -5px 0;
+    }
+    h2 {
+        font-size: 1.8em;
+    }
+    /* GAYA BARU UNTUK INTRO SECTION DI MOBILE KECIL */
+    .intro-tagline {
+        font-size: 1.8em;
+    }
+    .cursive-intro-name {
+        font-size: 2.5em;
+    }
+    .intro-and {
+        font-size: 2em;
+    }
+    .intro-btn {
+        font-size: 1em;
+        padding: 10px 20px;
+    }
+    /* AKHIR GAYA BARU UNTUK INTRO SECTION DI MOBILE KECIL */
+
+    /* GAYA BARU UNTUK ABOUT US SECTION DI MOBILE SANGAT KECIL */
+    .bismillah-text {
+        font-size: 0.9em;
+        margin-bottom: 1em;
+    }
+    .salam-text {
+        font-size: 0.85em;
+        margin-bottom: 0.8em;
+    }
+    .opening-phrase {
+        margin-top: 1em;
+    }
+    .parent-name {
+        font-size: 1.1em;
+    }
+    .and-in-text {
+        font-size: 1em;
+    }
+    .menjemput-text {
+        margin-top: 0.8em;
+    }
+    .guest-placeholder {
+        font-size: 0.9em;
+        margin-bottom: 1.2em;
+    }
+    .main-couple-name {
+        font-size: 1.5em;
+    }
+    /* AKHIR GAYA BARU UNTUK ABOUT US SECTION DI MOBILE SANGAT KECIL */
+
+    .tagline-top {
+        font-size: 1.1em;
+        letter-spacing: 2px;
+    }
+    .countdown {
+        font-size: 1.4em;
+        gap: 8px;
+        margin-top: 15px;
+    }
+    .countdown div {
+        min-width: 55px;
+        padding: 6px 8px;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+}
+
+/* Optional: Custom Scrollbar for better aesthetics */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color);
+}
